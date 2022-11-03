@@ -52,7 +52,7 @@
     </visual>
   </link>
 
-  <joint name="translatory1" type="prismatic">
+  <joint name="trans_z" type="prismatic">
     <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
     <axis xyz="0 0 1"/>
     <limit effort="30" velocity="1.0" lower="-0.3" upper="0.3"/>	
@@ -60,7 +60,7 @@
     <child link="base_link"/>
   </joint>
 
-  <joint name="translatory2" type="prismatic">
+  <joint name="trans_x" type="prismatic">
     <origin xyz="0.0 0.0 0.5" rpy="0.0 0.0 0.0"/>
     <axis xyz="1 0 0"/>
     <limit effort="30" velocity="1.0" lower="-0.20" upper="0.20"/>	
@@ -68,7 +68,7 @@
     <child link="base_link1"/>
   </joint>
 	  
-  <joint name="rev1" type="revolute">
+  <joint name="rev_z" type="revolute">
     <origin xyz="0.35 0.00 0.05" rpy="0.0 0.0 0.0"/>
     <axis xyz="0 0 1"/>
     <limit effort="30" velocity="1.0" lower="-3.14" upper="3.14"/>	
@@ -76,7 +76,7 @@
     <child link="base_link2"/>
   </joint>
 	  
-  <joint name="rev2" type="revolute">
+  <joint name="rev_x" type="revolute">
     <origin xyz="0.0 0.0 0.2" rpy="0.0 0.0 0.0"/>
     <axis xyz="1 0 0"/>
     <limit effort="30" velocity="1.0" lower="-3.14" upper="3.14"/>	
@@ -84,7 +84,7 @@
     <child link="base_link3"/>
   </joint>
 	  
-  <joint name="rev3" type="revolute">
+  <joint name="rev_y" type="revolute">
     <origin xyz="0.25 0.0 0.0" rpy="0.0 0.0 0.0"/>
     <axis xyz="0 1 0"/>
     <limit effort="30" velocity="1.0" lower="-3.14" upper="3.14"/>	
