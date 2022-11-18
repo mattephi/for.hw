@@ -4,6 +4,7 @@
   - [Current configuration - ZXZYX](#current-configuration---zxzyx)
   - [Mechanism Characteristics](#mechanism-characteristics)
   - [Frame Assignments](#frame-assignments)
+  - [DH-Table](#dh-table)
   - [Forward Kinematics](#forward-kinematics)
 
 ## Current configuration - ZXZYX
@@ -22,28 +23,37 @@ Even though it was not required by an assignment to create a spherical wrist out
 
 ## Frame Assignments
 
-Frame assignments are as shown on the picture above - **red** axis is **oX**, green is **oY** and blue is **oZ**. Some clarifications: all the frames perfectly aligned with the centers of links of the mechanism. Moreover, all axes are coaligned (in initial state). Given that the ground frame is the frame 0, the frame 1 is the frame of the first link, frame 2 is the frame of the second link and so on.
+Frame assignments of the ROS configuration should be ignored, since they are placed for convinience of drawing. You can find the actual frame assignments on the following image:
+
+![](assets/frames.png)
+
+## DH-Table
+
+| Joints | a                | alpha    | d | theta   |
+|--------|------------------|----------|---|---------|
+| 1      | 0                | 0        | 0 | 0       |
+| 2      | pi / 2           | pi / 2   | 0 | d1 + l1 |
+| 3      | 0                | - pi / 2 | 0 | d2 + l2 |
+| 4      | -pi / 2 + theta1 | pi / 2   | 0 | l3      |
+| 5      | pi / 2 + theta2  | pi /  2  | 0 | 0       |
+| 6      | theta3           | 0        | 0 | l4      |
 
 ## Forward Kinematics
 
-We have 5 links mechanism, so we need 5 transformations. First one is a transformation from the base frame to the first link frame. It is a simple translation along the **oZ** axis by **q1** units. Second transformation is a translation along **oX** axis by **q2** units. Third transformation is a rotation around **oZ** axis by **q3** units. Fourth transformation is a rotation around **oY** axis by **q4**. Fifth transformation is a rotation around **oX** axis by **q5** units. Therefore, given height, width and length as well as radius of the links, we can calculate the transformation matrix as follows:
+Having completed DH-Table, we can now calculate the forward kinematics easilly following the conventions:
 
-$$T = T^0_1 \cdot T^1_2 \cdot T^2_3 \cdot T^3_4 \cdot T^4_5$$
+$$T^{n-1}_{n} = Z_{n-1} \cdot X_{n}$$
+
 Where:
 
-$$T^0_1 = T_z(q1)$$
+$$Z_{i} = T_{z_i}(d_i) \cdot R_{z_i}(\theta_i)$$
+$$X_i = T_{x_i}(r_i) \cdot R_{x_i}(\alpha_i)$$
 
-$$T^1_2 = T_z(\frac{h_1}{2} + \frac{w_2}{2}) \cdot T_x(q2)$$
+$$T = T^0_1 \cdot T^1_2 \cdot T^2_3 \cdot T^3_4 \cdot T^4_5 \cdot T^5_6$$
 
-$$T^2_3 = T_x(\frac{h_2}{2} + r_3)\cdot R_z(q3)$$
-
-$$T^3_4 = T_z(\frac{l_3}{2} + r_4) \cdot R_y(q4)$$
-
-$$T^4_5 = T_x(r_4 + \frac{l_5}{2})\cdot R_x(q5)$$
+Knowing the form of translation and rotation matrices, we can simply plug in the values of the DH table and calculate the transformation matrix. The result is as follows:
 
 $$
 T = 
-\left[\begin{matrix}\cos{\left(q_{3} \right)} \cos{\left(q_{4} \right)} & - \sin{\left(q_{3} \right)} \cos{\left(q_{5} \right)} + \sin{\left(q_{4} \right)} \sin{\left(q_{5} \right)} \cos{\left(q_{3} \right)} & \sin{\left(q_{3} \right)} \sin{\left(q_{5} \right)} + \sin{\left(q_{4} \right)} \cos{\left(q_{3} \right)} \cos{\left(q_{5} \right)} & \frac{h_{2}}{2} + q_{2} + r_{3} + \left(\frac{l_{5}}{2} + r_{4}\right) \cos{\left(q_{3} \right)} \cos{\left(q_{4} \right)}\\\sin{\left(q_{3} \right)} \cos{\left(q_{4} \right)} & \sin{\left(q_{3} \right)} \sin{\left(q_{4} \right)} \sin{\left(q_{5} \right)} + \cos{\left(q_{3} \right)} \cos{\left(q_{5} \right)} & \sin{\left(q_{3} \right)} \sin{\left(q_{4} \right)} \cos{\left(q_{5} \right)} - \sin{\left(q_{5} \right)} \cos{\left(q_{3} \right)} & \left(\frac{l_{5}}{2} + r_{4}\right) \sin{\left(q_{3} \right)} \cos{\left(q_{4} \right)}\\ 
--\sin{\left(q_{4} \right)} & \sin{\left(q_{5} \right)} \cos{\left(q_{4} \right)} & \cos{\left(q_{4} \right)} \cos{\left(q_{5} \right)} & \frac{h_{1}}{2} + \frac{l_{3}}{2} + q_{1} + r_{4} + \frac{w_{2}}{2} - \frac{\left(l_{5} + 2 r_{4}\right) \sin{\left(q_{4} \right)}}{2}\\ 
-0 & 0 & 0 & 1\end{matrix}\right]
+\left[\begin{matrix}\sin{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \sin{\left(\operatorname{q_{5}}{\left(t \right)} \right)} - \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{5}}{\left(t \right)} \right)} & \sin{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{5}}{\left(t \right)} \right)} + \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)} \sin{\left(\operatorname{q_{5}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{3}}{\left(t \right)} \right)} & \cos{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{4}}{\left(t \right)} \right)} & l_{2} + l_{4} \cos{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{4}}{\left(t \right)} \right)} + \operatorname{q_{2}}{\left(t \right)}\\ - \sin{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{5}}{\left(t \right)} \right)} - \sin{\left(\operatorname{q_{5}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{3}}{\left(t \right)} \right)} & \sin{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)} \sin{\left(\operatorname{q_{5}}{\left(t \right)} \right)} - \cos{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{5}}{\left(t \right)} \right)} & \sin{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{4}}{\left(t \right)} \right)} & l_{4} \sin{\left(\operatorname{q_{3}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{4}}{\left(t \right)} \right)}\\ \cos{\left(\operatorname{q_{4}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{5}}{\left(t \right)} \right)} & - \sin{\left(\operatorname{q_{5}}{\left(t \right)} \right)} \cos{\left(\operatorname{q_{4}}{\left(t \right)} \right)} & \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)} & l_{1} + l_{3} + l_{4} \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)} + \operatorname{q_{1}}{\left(t \right)}\\ 0 & 0 & 0 & 
 $$
