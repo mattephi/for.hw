@@ -1,6 +1,7 @@
 # Assignment 2
 
 - [Assignment 2](#assignment-2)
+  - [Assignment Code](#assignment-code)
   - [Current configuration - ZXZYX](#current-configuration---zxzyx)
   - [Mechanism Characteristics](#mechanism-characteristics)
   - [Frame Assignments](#frame-assignments)
@@ -13,6 +14,11 @@
     - [Linear Nullspace](#linear-nullspace)
     - [Left Nullspace](#left-nullspace)
   - [Simulation](#simulation)
+  - [References](#references)
+
+## Assignment Code
+
+All the code used in the assignment can be found in the project notebook [here](solution.ipynb).
 
 ## Current configuration - ZXZYX
 
@@ -145,3 +151,16 @@ After we found the nullspace of the Jacobian, we can use it to simulate the move
 ![](assets/task2.gif)
 
 As we can see, the mechanism is moving as expected, which means that we did not make any major mistake in the calculations. Moreover, the end-effector, which frame coincides with the frame of the third revolute stays at the same position all the time. Therefore nullspace and jacobian are correct.
+
+## References
+
+I found useful the following resources:
+
+* [Robotics: Modelling, Planning and Control](https://www.amazon.com/Robotics-Modelling-Planning-Control-Intelligent/dp/3642039712) by Bruno Siciliano, Lorenzo Sciavicco, Luigi Villani
+* [Introduction to Inverse Kinematics with
+Jacobian Transpose, Pseudoinverse and Damped
+Least Squares methods](http://graphics.cs.cmu.edu/nsp/course/15-464/Spring11/handouts/iksurvey.pdf)
+* [Jacobian](https://www.rosroboticslearning.com/jacobian)
+* FoR Lectures
+* FoR Labs and code demos
+* FoR tutorials
