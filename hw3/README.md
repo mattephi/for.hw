@@ -88,11 +88,23 @@ Finally we can derive the inertia by simply substituting the corresponding value
 
 Coriolis is even easier. We have simply follow the formula by calculating Christoffel symbols and substituting the inertia.
 
+$$
+c_{ijk} = \frac{1}{2} \left( \frac{\partial M_{ij}}{\partial q_k} + \frac{\partial M_{ik}}{\partial q_j} - \frac{\partial M_{jk}}{\partial q_i} \right)
+$$
+
+Result is as follows:
+
 ![](assets/coriolis.png)
 
 ### Gravity
 
 Gravity is a one-liner as well. Moreover, we can easilly check whether it is correct by logically checking the values.
+
+$$
+g = \sum (J_{v_i}^k)^T m_k g
+$$
+
+Result is as follows:
 
 ![](assets/gravity.png)
 
@@ -156,7 +168,7 @@ $$
 After the easiest part (calculation of dynamics) is done, we have to implement the control. 
 
 Both tries share the way of calculating current position and the velocity.
-Let's assume we have correct $q_i, \dot{q_i}, \ddot{q_i}$ at the moment of time $t_i$. How do we make a change to $q_{i+1}, \dot{q_{i + 1}}, \ddot{q_{i + 1}}$? It happens this way, that the change in velocity can be calculated though the previous acceleration: $\dot{q_{i + 1}} = \dot{q_i} + \ddot{q_i} \cdot dt$. In the same manner we know the current position. The only thing we have to do is to calculate the acceleration.
+Let's assume we have correct $q_i, \dot{q_i}, \ddot{q_i}$ at the moment of time $t_i$. How do we make a change to $q_{i+1}, \dot{q_{i + 1}}, \ddot{q_{i + 1}}$? It happens this way, that the change in velocity can be calculated through the previous acceleration: $\dot{q_{i + 1}} = \dot{q_i} + \ddot{q_i} \cdot dt$. In the same manner we know the current position. The only thing we have to do is to calculate the acceleration.
 
 $$
 \ddot{q} = M^{-1} \left( \tau - C \dot{q} - g(q) \right)
