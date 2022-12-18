@@ -1,6 +1,6 @@
-# Assignment 2
+# Assignment 3
 
-- [Assignment 2](#assignment-2)
+- [Assignment 3](#assignment-3)
   - [Assignment Code](#assignment-code)
   - [Current configuration - ZXZYX](#current-configuration---zxzyx)
   - [Mechanism Characteristics](#mechanism-characteristics)
