@@ -98,7 +98,7 @@ Gravity is a one-liner as well. Moreover, we can easilly check whether it is cor
 
 As we can see, our first translational joint is negatively affected by the gravity. Moreover, this effect is constant, which seems to be true, since our joint movement is along the gravity axis and in the opposite direction.
 
-Moreover, our fourth joint rotation is affected as the function of the angle. This is logical as well, since the gravity is acting perpendicular to the axis of rotation.
+Moreover, our fourth joint rotation is affected as the function of the angle. This is reasonable as well, since the gravity is acting perpendicular to the axis of rotation.
 
 ## Trajectory planning
 
