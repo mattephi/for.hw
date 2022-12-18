@@ -107,9 +107,13 @@ Moreover, our fourth joint rotation is affected as the function of the angle. Th
 First of all, we have to define the trajectory. I have defined it in the following way:
 
 $$q_1 = 1$$
+
 $$q_2 = 1$$
+
 $$q_3 = \frac{3 \pi}{2}$$
+
 $$q_4 = \frac{3 \pi}{2}$$
+
 $$q_5 = \frac{\pi}{3}$$
 
 With this configuration revolute joints will have almost the full circle rotation, the last joint movement will be hard to visualize, so an angle is just for control and the translational joint will move along the actuation axis only on 1 unit.
