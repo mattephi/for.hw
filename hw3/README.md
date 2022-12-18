@@ -95,15 +95,13 @@ Coriolis is even easier. We have simply follow the formula by calculating Christ
 Gravity is a one-liner as well. Moreover, we can easilly check whether it is correct by logically checking the values.
 
 $$
-\left[
-\begin{matrix}
+\left[\begin{matrix}
 -39.24\\
 0\\
 0\\
 - 4.905 l_{4} \cos{\left(\operatorname{q_{4}}{\left(t \right)} \right)}\\
 0
-\end{matrix}
-\right]$$
+\end{matrix}\right]$$
 
 As we can see, our first translational joint is negatively affected by the gravity. Moreover, this effect is constant, which is logical, since our joint movement is along the gravity axis and in the opposite direction.
 
