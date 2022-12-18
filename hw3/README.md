@@ -156,7 +156,7 @@ $$
 After the easiest part (calculation of dynamics) is done, we have to implement the control. 
 
 Both tries share the way of calculating current position and the velocity.
-Let's assume we have correct $q_i, \dot{q}_i, \ddot{q}_i$ at the moment of time $t_i$. How do we make a change to $q_{i+1}, \dot{q}_{i + 1}, \ddot{q}_{i + 1}$? It happens this way, that the change in velocity can be calculated though the previous acceleration: $\dot{q}_{i + 1} = \dot{q}_i + \ddot{q}_i \cdot dt$. In the same manner we know the current position. The only thing we have to do is to calculate the acceleration.
+Let's assume we have correct $q_i, \dot{q_i}, \ddot{q_i}$ at the moment of time $t_i$. How do we make a change to $q_{i+1}, \dot{q_{i + 1}}, \ddot{q_{i + 1}}$? It happens this way, that the change in velocity can be calculated though the previous acceleration: $\dot{q_{i + 1}} = \dot{q_i} + \ddot{q_i} \cdot dt$. In the same manner we know the current position. The only thing we have to do is to calculate the acceleration.
 
 $$
 \ddot{q} = M^{-1} \left( \tau - C \dot{q} - g(q) \right)
