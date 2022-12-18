@@ -101,7 +101,7 @@ Result is as follows:
 Gravity is a one-liner as well. Moreover, we can easilly check whether it is correct by logically checking the values.
 
 $$
-g = \sum (J_{v_i}^k)^T m_k g
+g = \sum (J_{v_i}^k)^T m_k g_0
 $$
 
 Result is as follows:
